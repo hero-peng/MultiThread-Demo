@@ -25,5 +25,9 @@ public class SynchronizedDemo {
             demo.func1();
         });
 
+
+//        Object o = new Object();
+//        System.out.println(ClassLayout.parseInstance(o).toPrintable());//打印java 对象内存模型
+
     }
 }
