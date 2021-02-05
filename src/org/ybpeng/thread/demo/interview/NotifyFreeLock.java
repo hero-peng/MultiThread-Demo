@@ -40,6 +40,7 @@ public class NotifyFreeLock {
                     }
                 }
                 System.out.println("T2 thread end here...");
+                lock.notify();
             }
         });
 
@@ -53,6 +54,12 @@ public class NotifyFreeLock {
                         //如果size等于5，则通知T2结束
                         System.out.println("T1 thread notify T1 ");
                         lock.notify();
+
+                        try {
+                            lock.wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
