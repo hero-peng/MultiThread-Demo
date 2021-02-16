@@ -12,13 +12,20 @@ public class CallerRunsPolicyDemo {
     public static void main(String[] args) {
         BlockingQueue<Runnable> workQueue = new ArrayBlockingQueue<>(5);
         RejectedExecutionHandler handler = new MyRejectPolicy();
-        ThreadPoolExecutor executor = new ThreadPoolExecutor(5, 5,
-                0L, TimeUnit.SECONDS, workQueue, new MyThreadFactory(),handler);
-//        executor.prestartAllCoreThreads();
-        for (int i = 1; i <= 20; i++) {
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(5, 15,
+                10L, TimeUnit.SECONDS, workQueue, new MyThreadFactory(),handler);
+        executor.prestartAllCoreThreads();
+        for (int i = 1; i <= 80; i++) {
             executor.submit(new MyTask(String.valueOf(i)));
         }
         executor.shutdown();
+    }
+
+    public static class MyCallable implements Callable{
+        @Override
+        public Object call() throws Exception {
+            return null;
+        }
     }
 
     /*
